@@ -10,7 +10,8 @@
 - **Role:** Junior Full-Stack Developer at BIMPulse Digital
 - **Core Stack:** Python, Django, DRF, SQL, HTML, CSS, JavaScript
 - **Portfolio:** [abdellah-belmaaris.github.io](https://abdellah-belmaaris.github.io)
-- **Obsidian Vault:** `C:\Users\belma\OneDrive\Documents\Obsidian Vault\JavaScript\`
+- **Obsidian Vault:** `D:\MyDocs\Obsidien\Myspace\JavaScript\`
+
 
 ---
 
@@ -113,6 +114,7 @@ Features included:
 
 ## 📓 Synchronized Obsidian Vault
 All lecture notes, Mermaid flowcharts, and cheat sheets are mirrored inside your personal Obsidian Vault:
-`C:\Users\belma\OneDrive\Documents\Obsidian Vault\JavaScript\`
+`D:\MyDocs\Obsidien\Myspace\JavaScript\`
 - Start by opening `00 - 🗺️ JavaScript Map of Content (MOC).md` for the interactive roadmap.
 - Refer to `14 - 🐍⚡ Python vs JavaScript Cheat Sheet.md` for fast everyday syntax lookups.
+
