@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Episode 12 - DOM Events & Delegation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="box">
+        <h2>Interactive Form & Events</h2>
+        <form id="user-form">
+            <input type="text" id="text-input" placeholder="Type something..." autocomplete="off">
+            <button type="submit">Add to List</button>
+        </form>
+
+        <div class="live-preview">
+            <strong>Live Preview:</strong> <span id="preview-text">(empty)</span>
+        </div>
+        <p id="log-output" style="color: #94a3b8; font-size: 13px; margin-top: 10px;">Waiting for events...</p>
+    </div>
+
+    <div class="box">
+        <h3>Dynamic Items (Event Delegation):</h3>
+        <ul id="items-list" class="interactive-list">
+            <li>
+                <span>Example Item 1</span>
+                <button class="delete-btn">Delete</button>
+            </li>
+            <li>
+                <span>Example Item 2</span>
+                <button class="delete-btn">Delete</button>
+            </li>
+        </ul>
+    </div>
+
+    <script src="dom_events.js"></script>
+</body>
+</html>
