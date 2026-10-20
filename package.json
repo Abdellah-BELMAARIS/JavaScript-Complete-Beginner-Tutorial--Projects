@@ -1,0 +1,30 @@
+{
+  "name": "javascript-complete-beginner-tutorial-projects",
+  "version": "1.0.0",
+  "description": "Complete JavaScript course with terminal runner and visual on-page output",
+  "main": "runner.js",
+  "scripts": {
+    "start": "node runner.js",
+    "lesson": "node runner.js",
+    "ep1": "node JavaScript_1/script.js",
+    "ep2": "node JavaScript_2/codyyn.js",
+    "ep3": "node JavaScript_3/operators.js",
+    "ep4": "node JavaScript_4/control_flow.js",
+    "ep5": "node JavaScript_5/loops.js",
+    "ep6": "node JavaScript_6/functions.js",
+    "ep7": "node JavaScript_7/arrays_objects.js",
+    "ep8": "node JavaScript_8/error_handling.js",
+    "ep9": "node JavaScript_9/es6_features.js",
+    "ep10": "node JavaScript_10/async_javascript.js",
+    "all": "node runner.js all"
+  },
+  "keywords": [
+    "javascript",
+    "course",
+    "full-stack",
+    "codynn",
+    "python-developer"
+  ],
+  "author": "Abdellah Belmaaris",
+  "license": "MIT"
+}

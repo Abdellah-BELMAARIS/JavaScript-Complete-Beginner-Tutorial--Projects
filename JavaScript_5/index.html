@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Episode 5 - Loops & Iteration</title>
+    <title>Episode 5: Loops & Iterations</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #0b0f19;
             color: #f1f5f9;
-            min-height: 100vh;
+            padding: 30px 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 24px;
         }
-        .card {
-            background: #1e293b;
-            max-width: 650px;
+        .container {
+            max-width: 820px;
             width: 100%;
-            padding: 32px;
-            border-radius: 14px;
+        }
+        .header-card {
+            background: #1e293b;
+            padding: 24px;
+            border-radius: 12px;
             border: 1px solid #334155;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
         }
         .badge {
             display: inline-block;
@@ -33,55 +33,176 @@
             font-weight: 700;
             padding: 4px 10px;
             border-radius: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             border: 1px solid #38bdf844;
         }
-        h1 { color: #60a5fa; font-size: 24px; margin-bottom: 8px; }
-        p.desc { color: #94a3b8; line-height: 1.6; margin-bottom: 20px; font-size: 15px; }
-        .topics-box {
-            background: #0f172a;
-            padding: 18px 20px;
-            border-radius: 10px;
-            border: 1px solid #1e293b;
-            margin-bottom: 20px;
-        }
-        .topics-box h3 { color: #e2e8f0; font-size: 15px; margin-bottom: 10px; }
-        ul { padding-left: 20px; color: #cbd5e1; font-size: 14px; line-height: 1.8; }
-        .instructions {
+        h1 { color: #60a5fa; font-size: 24px; margin-bottom: 6px; }
+        p.desc { color: #94a3b8; font-size: 14px; margin-bottom: 16px; line-height: 1.5; }
+        .topics {
             background: #0f172a;
             padding: 14px 18px;
             border-radius: 8px;
-            border-left: 4px solid #38bdf8;
-            font-size: 13px;
-            color: #94a3b8;
+            border: 1px solid #1e293b;
         }
-        code { color: #f472b6; background: #1e293b; padding: 2px 6px; border-radius: 4px; }
+        .topics h3 { font-size: 14px; color: #e2e8f0; margin-bottom: 8px; }
+        ul { padding-left: 20px; font-size: 13px; color: #cbd5e1; line-height: 1.7; }
+        
+        /* On-Screen Terminal Display (NO F12 CONSOLE NEEDED!) */
+        .terminal-card {
+            background: #090d16;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+        .terminal-header {
+            background: #1e293b;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+        .terminal-header span {
+            font-size: 13px;
+            font-family: monospace;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        .dots {
+            display: flex;
+            gap: 6px;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+        .terminal-body {
+            padding: 18px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            max-height: 480px;
+            overflow-y: auto;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+        }
+        .log-info { color: #e2e8f0; }
+        .log-warn { color: #fbbf24; }
+        .log-error { color: #f87171; }
+        .log-heading { color: #38bdf8; font-weight: bold; border-bottom: 1px dashed #334155; padding-bottom: 2px; margin-top: 10px; }
+        
+        .run-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 18px;
+            background: #111827;
+            border-top: 1px solid #1f2937;
+        }
+        .run-bar button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .run-bar button:hover { background: #1d4ed8; }
+        .terminal-cmd {
+            font-family: monospace;
+            font-size: 12px;
+            color: #6ee7b7;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <span class="badge">CODYNN JAVASCRIPT COURSE • EPISODE 5</span>
-        <h1>Loops & Iteration</h1>
-        <p class="desc">Repeating execution with for, while, do...while, and modern for...of / for...in iterators.</p>
-        
-        <div class="topics-box">
-            <h3>🔑 Key Concepts Covered:</h3>
-            <ul>
-            <li><strong>Standard For Loop:</strong>  Initializer, condition, incrementor</li>
-            <li><strong>While & Do-While:</strong>  Pre-check vs post-check loops</li>
-            <li><strong>for...of vs for...in:</strong>  Iterating array values vs object keys</li>
-            <li><strong>Control Statements:</strong>  break (exit early) & continue (skip step)</li>
-            </ul>
+    <div class="container">
+        <div class="header-card">
+            <span class="badge">CODYNN JAVASCRIPT MASTERCLASS • EPISODE 5</span>
+            <h1>Loops & Iterations</h1>
+            <p class="desc">Repetitive execution with standard loops, while loops, and modern ES6 iterators.</p>
+            
+            <div class="topics">
+                <h3>🔑 Key Lesson Concepts:</h3>
+                <ul>
+                <li><strong>for and while loops:</strong>  Pre-condition checks</li>
+                <li><strong>do...while:</strong>  Guaranteed at least one execution</li>
+                <li><strong>for...of vs for...in:</strong>  Iterating values vs object keys</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="instructions">
-            <strong>💡 How to inspect & run:</strong>
-            <p>1. Press <code>F12</code> or <code>Ctrl + Shift + I</code> to open Developer Tools.</p>
-            <p>2. Click the <strong>Console</strong> tab to see all outputs.</p>
-            <p>3. Or run in terminal: <code>node loops.js</code></p>
+        
+
+        <!-- Live Visual Terminal Output (No need to open F12!) -->
+        <div class="terminal-card">
+            <div class="terminal-header">
+                <div class="dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <span>⚡ Live Screen Terminal Output</span>
+                <span class="terminal-cmd">node loops.js</span>
+            </div>
+            <div id="terminal-screen" class="terminal-body"></div>
+            <div class="run-bar">
+                <span style="font-size: 12px; color: #94a3b8;">Output renders directly on page without DevTools!</span>
+                <button onclick="rerunScript()">🔄 Re-run Code</button>
+            </div>
         </div>
     </div>
 
-    <script src="loops.js"></script>
+    <!-- Screen Console Interceptor -->
+    <script>
+        const terminalEl = document.getElementById("terminal-screen");
+        function appendToScreen(text, type) {
+            const div = document.createElement("div");
+            if (text.startsWith("---") || text.startsWith("===")) {
+                div.className = "log-heading";
+            } else {
+                div.className = "log-" + type;
+            }
+            div.textContent = text;
+            terminalEl.appendChild(div);
+        }
+
+        const origLog = console.log;
+        const origWarn = console.warn;
+        const origError = console.error;
+
+        console.log = function(...args) {
+            origLog.apply(console, args);
+            const formatted = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+            appendToScreen(formatted, "info");
+        };
+        console.warn = function(...args) {
+            origWarn.apply(console, args);
+            const formatted = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+            appendToScreen("⚠️ " + formatted, "warn");
+        };
+        console.error = function(...args) {
+            origError.apply(console, args);
+            const formatted = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+            appendToScreen("❌ " + formatted, "error");
+        };
+
+        function rerunScript() {
+            terminalEl.innerHTML = "";
+            const oldScript = document.getElementById("lesson-script");
+            if (oldScript) oldScript.remove();
+            
+            const newScript = document.createElement("script");
+            newScript.id = "lesson-script";
+            newScript.src = "loops.js?t=" + Date.now();
+            document.body.appendChild(newScript);
+        }
+    </script>
+    <script id="lesson-script" src="loops.js"></script>
 </body>
 </html>

@@ -58,27 +58,34 @@
 
 ## 🚀 How to Run the Code
 
-### 1. In Terminal via Node.js
-Every script (Episodes 1 through 10) can be executed directly from your terminal:
+### 1. Interactive Terminal Course Runner (Recommended!)
+Run lessons interactively with rich command-line outputs:
 ```powershell
-node JavaScript_1/script.js
-node JavaScript_2/codyyn.js
-node JavaScript_3/operators.js
-node JavaScript_6/functions.js
-node JavaScript_7/arrays_objects.js
-node JavaScript_10/async_javascript.js
+# Launch interactive terminal menu:
+node runner.js
+# or:
+npm start
+
+# Run a specific lesson directly:
+node runner.js 3     # Runs Episode 3
+npm run ep3          # Runs Episode 3
+
+# Run all lessons in sequence:
+node runner.js all
+npm run all
 ```
 
-### 2. In Your Browser
-Each folder contains an `index.html` file.
-- Simply open any `index.html` file in your browser (Chrome, Edge, Firefox).
-- Press `F12` (or `Ctrl + Shift + I`) and click the **Console** tab to view the live outputs and interactive logs!
+### 2. In Your Browser (Visual On-Screen Output — NO F12 Needed!)
+You do **not** need to open browser Developer Tools (F12) to see console outputs anymore!
+- Every `index.html` file includes an **embedded on-screen terminal emulator**.
+- When you open any `index.html` file in Chrome/Edge, all outputs (`console.log`, `warn`, `error`, headings) are rendered directly in a terminal box on the webpage!
+- Includes a **🔄 Re-run Code** button to execute changes instantly.
 
 ### 3. Launching the Task Manager App (Project 13)
 Open `JavaScript_13_TaskManager/index.html` in your browser.
 Features included:
 - ➕ Add tasks with instant validation.
-- フィルター Filter by All, Active, or Completed.
+- 🎯 Filter by All, Active, or Completed.
 - ✅ Toggle completion with strike-through styling.
 - 🗑️ Delete tasks with parent event delegation.
 - 💾 Automatic `localStorage` saving (tasks persist across reloads).

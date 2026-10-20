@@ -138,3 +138,12 @@ clearCompletedBtn.addEventListener("click", () => {
 
 // 6. Initialize App
 loadTasks();
+
+// ========================================================
+// ⚡ CAPSTONE CHALLENGES (Take this app further!):
+// 1. Add priority tags (High, Medium, Low) to tasks.
+// 2. Add a search bar to filter tasks by keyword in real time.
+// 3. Connect this frontend to a Django REST Framework (DRF) backend
+//    using fetch() instead of localStorage!
+// ========================================================
+
