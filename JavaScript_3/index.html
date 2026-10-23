@@ -118,10 +118,38 @@
             font-size: 12px;
             color: #6ee7b7;
         }
+    
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .nav-arrows { display: flex; gap: 10px; }
+        .nav-link {
+            background: #1e293b;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { border-color: #38bdf8; color: #fff; }
+        .log-info-msg { color: #38bdf8; }
     </style>
 </head>
 <body>
     <div class="container">
+        <nav class="top-nav">
+            <a href="../index.html" class="nav-link">?? Course Hub</a>
+            <div class="nav-arrows">
+                <a href="../JavaScript_2/index.html" class="nav-link">? Ep 2</a>
+                <a href="../JavaScript_4/index.html" class="nav-link">Ep 4 ?</a>
+            </div>
+        </nav>
         <div class="header-card">
             <span class="badge">CODYNN JAVASCRIPT MASTERCLASS • EPISODE 3</span>
             <h1>Operators, Expressions & Strict Equality</h1>
@@ -162,9 +190,11 @@
     <!-- Screen Console Interceptor -->
     <script>
         const terminalEl = document.getElementById("terminal-screen");
+        const timers = {};
+
         function appendToScreen(text, type) {
             const div = document.createElement("div");
-            if (text.startsWith("---") || text.startsWith("===")) {
+            if (text.trim().startsWith("---") || text.trim().startsWith("===")) {
                 div.className = "log-heading";
             } else {
                 div.className = "log-" + type;
@@ -173,35 +203,58 @@
             terminalEl.appendChild(div);
         }
 
+        function formatArgs(args) {
+            return args.map(a => typeof a === "object" && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(" ");
+        }
+
         const origLog = console.log;
+        const origInfo = console.info;
         const origWarn = console.warn;
         const origError = console.error;
+        const origTable = console.table;
 
         console.log = function(...args) {
             origLog.apply(console, args);
-            const formatted = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
-            appendToScreen(formatted, "info");
+            appendToScreen(formatArgs(args), "info");
+        };
+        console.info = function(...args) {
+            origInfo.apply(console, args);
+            appendToScreen("?? " + formatArgs(args), "info-msg");
         };
         console.warn = function(...args) {
             origWarn.apply(console, args);
-            const formatted = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
-            appendToScreen("⚠️ " + formatted, "warn");
+            appendToScreen("?? " + formatArgs(args), "warn");
         };
         console.error = function(...args) {
             origError.apply(console, args);
-            const formatted = args.map(a => typeof a === 'object' && a !== null ? JSON.stringify(a, null, 2) : String(a)).join(' ');
-            appendToScreen("❌ " + formatted, "error");
+            appendToScreen("? " + formatArgs(args), "error");
+        };
+        console.table = function(data) {
+            if (origTable) origTable.call(console, data);
+            appendToScreen("?? [Table] " + JSON.stringify(data, null, 2), "info");
+        };
+        console.time = function(label = "default") {
+            timers[label] = performance.now();
+        };
+        console.timeEnd = function(label = "default") {
+            if (timers[label] !== undefined) {
+                const elapsed = (performance.now() - timers[label]).toFixed(2);
+                delete timers[label];
+                appendToScreen(`?? ${label}: ${elapsed}ms`, "info-msg");
+            }
         };
 
-        function rerunScript() {
-            terminalEl.innerHTML = "";
-            const oldScript = document.getElementById("lesson-script");
-            if (oldScript) oldScript.remove();
-            
-            const newScript = document.createElement("script");
-            newScript.id = "lesson-script";
-            newScript.src = "operators.js?t=" + Date.now();
-            document.body.appendChild(newScript);
+        async function rerunScript() {
+            terminalEl.replaceChildren();
+            try {
+                const res = await fetch("operators.js?t=" + Date.now());
+                if (!res.ok) throw new Error("Fetch failed");
+                const code = await res.text();
+                const runner = new Function(code);
+                runner();
+            } catch {
+                window.location.reload();
+            }
         }
     </script>
     <script id="lesson-script" src="operators.js"></script>

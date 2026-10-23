@@ -2,35 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Episode 12 - DOM Events & Delegation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode 12: DOM Events, Delegation & Debounced Input</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="box">
-        <h2>Interactive Form & Events</h2>
-        <form id="user-form">
-            <input type="text" id="text-input" placeholder="Type something..." autocomplete="off">
-            <button type="submit">Add to List</button>
-        </form>
+    <div class="container">
+        <nav class="top-nav">
+            <a href="../index.html" class="nav-link">🏠 Course Hub</a>
+            <div class="nav-arrows">
+                <a href="../JavaScript_11/index.html" class="nav-link">← Ep 11: DOM Basics</a>
+                <a href="../JavaScript_13_TaskManager/index.html" class="nav-link">Ep 13: Task Manager Pro →</a>
+            </div>
+        </nav>
 
-        <div class="live-preview">
-            <strong>Live Preview:</strong> <span id="preview-text">(empty)</span>
+        <div class="box">
+            <span class="badge">CODYNN JAVASCRIPT MASTERCLASS • EPISODE 12</span>
+            <h1>DOM Events, Debouncing & Event Delegation</h1>
+            <p class="desc">
+                Intercept form submissions with <code>e.preventDefault()</code>, compare raw vs debounced input events, and handle dynamic list actions via a single parent listener (<code>e.target.closest()</code>).
+            </p>
+
+            <form id="user-form">
+                <input type="text" id="text-input" placeholder="Type an item (Press Esc to clear)..." autocomplete="off">
+                <button type="submit">➕ Add Item (XSS-Safe)</button>
+            </form>
+
+            <div class="preview-grid">
+                <div class="live-preview">
+                    <strong>Instant <code>input</code> Event:</strong>
+                    <span id="preview-text">(empty)</span>
+                </div>
+                <div class="live-preview debounced">
+                    <strong>Debounced (300ms API Search):</strong>
+                    <span id="debounced-preview">(waiting...)</span>
+                </div>
+            </div>
         </div>
-        <p id="log-output" style="color: #94a3b8; font-size: 13px; margin-top: 10px;">Waiting for events...</p>
-    </div>
 
-    <div class="box">
-        <h3>Dynamic Items (Event Delegation):</h3>
-        <ul id="items-list" class="interactive-list">
-            <li>
-                <span>Example Item 1</span>
-                <button class="delete-btn">Delete</button>
-            </li>
-            <li>
-                <span>Example Item 2</span>
-                <button class="delete-btn">Delete</button>
-            </li>
-        </ul>
+        <div class="box">
+            <div class="list-header">
+                <h3>Dynamic Items (Single Parent Listener on <code>#items-list</code>)</h3>
+                <span id="items-count" class="count-badge">2 items</span>
+            </div>
+
+            <!-- XSS-Safe Row Blueprint -->
+            <template id="item-row-template">
+                <li class="item-row">
+                    <span class="item-label"></span>
+                    <div class="item-actions">
+                        <button type="button" class="edit-btn">Rename</button>
+                        <button type="button" class="delete-btn">Delete</button>
+                    </div>
+                </li>
+            </template>
+
+            <ul id="items-list" class="interactive-list"></ul>
+        </div>
+
+        <div class="terminal-card">
+            <div class="terminal-header">
+                <span>⚡ Real-Time Event Stream</span>
+                <span class="terminal-cmd">dom_events.js</span>
+            </div>
+            <div id="log-output" class="terminal-body"></div>
+        </div>
     </div>
 
     <script src="dom_events.js"></script>

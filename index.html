@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Complete Tutorial & Projects — Interactive Course Hub</title>
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #1e293b;
+            --bg-elevated: #0f172a;
+            --border: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --accent: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --purple: #a855f7;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 36px 20px 60px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+        .hero {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 14px;
+            max-width: 660px;
+        }
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 220px;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 11px 18px;
+            border-radius: 10px;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--bg-elevated);
+            color: #cbd5e1;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 9px 16px;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { border-color: var(--accent); color: #fff; }
+
+        /* Filter Bar */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { color: var(--text-main); }
+        .tab-btn.active {
+            background: rgba(59, 130, 246, 0.18);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+        .search-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            min-width: 240px;
+            outline: none;
+        }
+        .search-box:focus { border-color: var(--accent); }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.15s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: #475569;
+        }
+        .card.capstone {
+            border-color: rgba(16, 185, 129, 0.5);
+            background: linear-gradient(160deg, #1e293b 0%, #06281e 100%);
+        }
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .ep-tag {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 6px;
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+        }
+        .track-tag {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+        .card h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+        }
+        .card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+        .django-bridge {
+            background: var(--bg-elevated);
+            border-left: 3px solid var(--amber);
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+        .django-bridge strong { color: var(--amber); }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(51, 65, 85, 0.6);
+            padding-top: 12px;
+        }
+        .file-label {
+            font-family: monospace;
+            font-size: 12px;
+            color: #6ee7b7;
+        }
+        .open-link {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .open-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <div>
+                <span class="badge">Python / Django to Frontend JS Curriculum</span>
+                <h1>⚡ JavaScript Complete Tutorial & Projects</h1>
+                <p>
+                    Interactive 13-episode course & project suite tailored for <strong>Abdellah Belmaaris</strong>.
+                    Every lesson includes an embedded browser terminal, Python/Django mental bridges, and zero-XSS DOM architecture.
+                </p>
+            </div>
+            <div class="hero-actions">
+                <a href="JavaScript_13_TaskManager/index.html" class="btn-primary">🚀 Launch Ep 13 Task Manager Pro</a>
+                <a href="JavaScript_1/index.html" class="btn-secondary">▶️ Start from Episode 1</a>
+            </div>
+        </header>
+
+        <div class="toolbar">
+            <div class="tabs">
+                <button class="tab-btn active" data-category="all">All Episodes (13)</button>
+                <button class="tab-btn" data-category="core">Core Language (Ep 1–9)</button>
+                <button class="tab-btn" data-category="async">Async & DRF API (Ep 10)</button>
+                <button class="tab-btn" data-category="dom">DOM & Events (Ep 11–12)</button>
+                <button class="tab-btn" data-category="capstone">Capstone App (Ep 13)</button>
+            </div>
+            <input type="search" id="episode-search" class="search-box" placeholder="Search topic, method, or Django bridge...">
+        </div>
+
+        <main id="episodes-grid" class="grid"></main>
+    </div>
+
+    <script>
+        const EPISODES = [
+            {
+                ep: 1,
+                category: "core",
+                title: "Intro, V8 Engine & Console Outputs",
+                desc: "Execution flow, console debugging methods (log, warn, error, info), and browser modal dialogs.",
+                bridge: "Python print() / logging -> console.log(), console.warn(), console.error()",
+                file: "JavaScript_1/script.js",
+                link: "JavaScript_1/index.html"
+            },
+            {
+                ep: 2,
+                category: "core",
+                title: "Variables (let, const, var) & Data Types",
+                desc: "Block scoping vs function scoping, const reference immutability, 7 primitive types, and typeof quirks.",
+                bridge: "Python dynamic assignment -> explicit block-scoped const (default) & let",
+                file: "JavaScript_2/codyyn.js",
+                link: "JavaScript_2/index.html"
+            },
+            {
+                ep: 3,
+                category: "core",
+                title: "Operators, Strict Equality & Nullish Coalescing",
+                desc: "Strict equality (=== vs ==), short-circuiting, ternary expressions, and nullish coalescing (??).",
+                bridge: "Python 'x if cond else y' -> 'cond ? x : y' | 'x or default' -> 'x ?? default'",
+                file: "JavaScript_3/operators.js",
+                link: "JavaScript_3/index.html"
+            },
+            {
+                ep: 4,
+                category: "core",
+                title: "Control Flow & Truthy/Falsy Trap",
+                desc: "If/else branching, switch statements, and JavaScript's 6 falsy values.",
+                bridge: "CRITICAL TRAP: Empty array [] and object {} are TRUTHY in JS (Falsy in Python!)",
+                file: "JavaScript_4/control_flow.js",
+                link: "JavaScript_4/index.html"
+            },
+            {
+                ep: 5,
+                category: "core",
+                title: "Loops: for, while, for...of & for...in",
+                desc: "Classic iteration, iterable value loops (for...of), and object key enumeration (for...in).",
+                bridge: "Python 'for item in list:' -> JS 'for (const item of list)'",
+                file: "JavaScript_5/loops.js",
+                link: "JavaScript_5/index.html"
+            },
+            {
+                ep: 6,
+                category: "core",
+                title: "Functions, Arrow Functions & Closures",
+                desc: "Hoisted declarations vs expressions, lexical 'this' in arrow functions, rest args, and stateful closures.",
+                bridge: "Python def / nonlocal closure -> JS lexical closures & () => arrow functions",
+                file: "JavaScript_6/functions.js",
+                link: "JavaScript_6/index.html"
+            },
+            {
+                ep: 7,
+                category: "core",
+                title: "Arrays & Objects: map, filter, reduce",
+                desc: "Declarative data pipelines, object methods, nested destructuring, and immutable spread cloning.",
+                bridge: "Python [x*2 for x in list if x>0] -> list.filter(x => x>0).map(x => x*2)",
+                file: "JavaScript_7/arrays_objects.js",
+                link: "JavaScript_7/index.html"
+            },
+            {
+                ep: 8,
+                category: "core",
+                title: "Error Handling & Console Profiling",
+                desc: "Structured try/catch/finally, custom TypeError/RangeError throwing, console.table(), and console.time().",
+                bridge: "Python try/except/finally & raise ValueError -> try/catch/finally & throw new Error()",
+                file: "JavaScript_8/error_handling.js",
+                link: "JavaScript_8/index.html"
+            },
+            {
+                ep: 9,
+                category: "core",
+                title: "Modern ES6+: Template Literals, ?. & Spread",
+                desc: "Multi-line interpolation, property shorthand, computed keys, and safe optional chaining (?.).",
+                bridge: "Python f'{user.name}' & dict.get() -> `${user.name}` & user?.profile?.city",
+                file: "JavaScript_9/es6_features.js",
+                link: "JavaScript_9/index.html"
+            },
+            {
+                ep: 10,
+                category: "async",
+                title: "Async JS: Promises, Fetch, Promise.all & DRF",
+                desc: "Event loop microtasks, async/await, parallel Promise.all(), AbortController, and Mock DRF API requests.",
+                bridge: "Python asyncio.gather() & requests -> Promise.all() & two-step await fetch()",
+                file: "JavaScript_10/async_javascript.js",
+                link: "JavaScript_10/index.html"
+            },
+            {
+                ep: 11,
+                category: "dom",
+                title: "DOM Manipulation: <template> & DocumentFragment",
+                desc: "Selecting nodes, XSS-safe textContent, classList state toggles, and single-reflow batch rendering.",
+                bridge: "Replaces Django {{ var }}, {% if %}, and {% for %} server-side template tags",
+                file: "JavaScript_11/dom_manipulation.js",
+                link: "JavaScript_11/index.html"
+            },
+            {
+                ep: 12,
+                category: "dom",
+                title: "DOM Events, Delegation & Debounced Input",
+                desc: "Form e.preventDefault(), XSS-safe item creation, debounced live preview, and e.target.closest() delegation.",
+                bridge: "Replaces full-page Django Form POST reloads with instant client-side event handling",
+                file: "JavaScript_12/dom_events.js",
+                link: "JavaScript_12/index.html"
+            },
+            {
+                ep: 13,
+                category: "capstone",
+                title: "Capstone: Full-Stack Task Manager Pro",
+                desc: "Zero-XSS <template> rendering, priority & status filters, debounced search, inline edit, and LocalStorage <-> Mock DRF API toggle.",
+                bridge: "Complete SPA replacement for Django CRUD Views + DRF API & X-CSRFToken",
+                file: "JavaScript_13_TaskManager/app.js",
+                link: "JavaScript_13_TaskManager/index.html"
+            }
+        ];
+
+        const grid = document.getElementById("episodes-grid");
+        const searchInput = document.getElementById("episode-search");
+        const tabBtns = document.querySelectorAll(".tab-btn");
+        let activeCategory = "all";
+
+        function renderEpisodes() {
+            const q = searchInput.value.trim().toLowerCase();
+            grid.replaceChildren();
+
+            const filtered = EPISODES.filter(item => {
+                const matchCat = activeCategory === "all" || item.category === activeCategory;
+                const matchSearch = !q ||
+                    item.title.toLowerCase().includes(q) ||
+                    item.desc.toLowerCase().includes(q) ||
+                    item.bridge.toLowerCase().includes(q);
+                return matchCat && matchSearch;
+            });
+
+            const fragment = document.createDocumentFragment();
+            filtered.forEach(item => {
+                const card = document.createElement("article");
+                card.className = `card ${item.category === "capstone" ? "capstone" : ""}`;
+
+                const top = document.createElement("div");
+                top.className = "card-top";
+                const epTag = document.createElement("span");
+                epTag.className = "ep-tag";
+                epTag.textContent = `EPISODE ${String(item.ep).padStart(2, "0")}`;
+                const trackTag = document.createElement("span");
+                trackTag.className = "track-tag";
+                trackTag.textContent = item.category.toUpperCase();
+                top.append(epTag, trackTag);
+
+                const h3 = document.createElement("h3");
+                h3.textContent = item.title;
+
+                const p = document.createElement("p");
+                p.textContent = item.desc;
+
+                const bridge = document.createElement("div");
+                bridge.className = "django-bridge";
+                const strong = document.createElement("strong");
+                strong.textContent = "🐍 Python/Django Bridge: ";
+                const span = document.createElement("span");
+                span.textContent = item.bridge;
+                bridge.append(strong, span);
+
+                const bodyWrap = document.createElement("div");
+                bodyWrap.append(top, h3, p, bridge);
+
+                const footer = document.createElement("div");
+                footer.className = "card-footer";
+                const fileSpan = document.createElement("span");
+                fileSpan.className = "file-label";
+                fileSpan.textContent = item.file;
+                const link = document.createElement("a");
+                link.className = "open-link";
+                link.href = item.link;
+                link.textContent = "Open Lesson →";
+                footer.append(fileSpan, link);
+
+                card.append(bodyWrap, footer);
+                fragment.appendChild(card);
+            });
+
+            grid.appendChild(fragment);
+        }
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                tabBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                activeCategory = btn.dataset.category;
+                renderEpisodes();
+            });
+        });
+
+        searchInput.addEventListener("input", renderEpisodes);
+        renderEpisodes();
+    </script>
+</body>
+</html>

@@ -2,28 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Episode 11 - DOM Manipulation Fundamentals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode 11: DOM Manipulation — Replacing Jinja2 / Django Templates</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="card">
-        <h1 id="main-title">DOM Manipulation Playground</h1>
-        <p id="desc-text">Click the buttons below to interactively alter this document.</p>
-        
-        <div>
-            <button id="btn-change-text">Change Text & Color</button>
-            <button id="btn-toggle-class">Toggle Highlight Class</button>
-            <button id="btn-add-item">Add New Item</button>
-        </div>
-    </div>
+    <div class="container">
+        <nav class="top-nav">
+            <a href="../index.html" class="nav-link">🏠 Course Hub</a>
+            <div class="nav-arrows">
+                <a href="../JavaScript_10/index.html" class="nav-link">← Ep 10: Async & DRF</a>
+                <a href="../JavaScript_12/index.html" class="nav-link">Ep 12: DOM Events →</a>
+            </div>
+        </nav>
 
-    <div class="card">
-        <h3>Skills List:</h3>
-        <ul id="skills-list">
-            <li>Python</li>
-            <li>Django</li>
-            <li>JavaScript</li>
-        </ul>
+        <div class="card">
+            <span class="badge">CODYNN JAVASCRIPT MASTERCLASS • EPISODE 11</span>
+            <h1 id="main-title">DOM Manipulation Playground</h1>
+            <p id="desc-text" class="desc">
+                Replace Django <code>{{ variable }}</code>, <code>{% if %}</code>, and <code>{% for %}</code> tags using XSS-safe DOM APIs, <code>&lt;template&gt;</code>, and <code>DocumentFragment</code>.
+            </p>
+
+            <div class="btn-group">
+                <button id="btn-change-text" class="btn primary">1. Update textContent ({{ var }})</button>
+                <button id="btn-toggle-class" class="btn secondary">2. Toggle Class ({% if %})</button>
+                <button id="btn-add-item" class="btn accent">3. Clone &lt;template&gt; Item</button>
+                <button id="btn-batch-render" class="btn success">4. Batch Render (DocumentFragment)</button>
+                <button id="btn-clear" class="btn danger">Clear List (replaceChildren)</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="list-header">
+                <h3>Full-Stack Skills List (Rendered via <code>&lt;template&gt;</code>)</h3>
+                <span id="skill-counter" class="counter-pill">3 skills</span>
+            </div>
+
+            <!-- Blueprint replacing Django {% for skill in skills %} -->
+            <template id="skill-row-template">
+                <li class="skill-item">
+                    <span class="skill-name"></span>
+                    <span class="skill-category"></span>
+                </li>
+            </template>
+
+            <ul id="skills-list" class="skills-list"></ul>
+        </div>
+
+        <div class="terminal-card">
+            <div class="terminal-header">
+                <span>⚡ Live DOM Inspection Log</span>
+                <span class="terminal-cmd">dom_manipulation.js</span>
+            </div>
+            <div id="dom-log" class="terminal-body"></div>
+        </div>
     </div>
 
     <script src="dom_manipulation.js"></script>

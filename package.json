@@ -1,10 +1,11 @@
 {
   "name": "javascript-complete-beginner-tutorial-projects",
-  "version": "1.0.0",
-  "description": "Complete JavaScript course with terminal runner and visual on-page output",
+  "version": "2.0.0",
+  "description": "Complete 13-Episode JavaScript Course & Projects with Python/Django bridges, <template> DOM architecture, and DRF API integration",
   "main": "runner.js",
   "scripts": {
     "start": "node runner.js",
+    "hub": "node runner.js hub",
     "lesson": "node runner.js",
     "ep1": "node JavaScript_1/script.js",
     "ep2": "node JavaScript_2/codyyn.js",
@@ -16,6 +17,9 @@
     "ep8": "node JavaScript_8/error_handling.js",
     "ep9": "node JavaScript_9/es6_features.js",
     "ep10": "node JavaScript_10/async_javascript.js",
+    "ep11": "node runner.js 11",
+    "ep12": "node runner.js 12",
+    "ep13": "node runner.js 13",
     "all": "node runner.js all"
   },
   "keywords": [
@@ -23,7 +27,8 @@
     "course",
     "full-stack",
     "codynn",
-    "python-developer"
+    "python-developer",
+    "django-rest-framework"
   ],
   "author": "Abdellah Belmaaris",
   "license": "MIT"
